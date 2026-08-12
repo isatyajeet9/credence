@@ -13,7 +13,7 @@ Built for an MCA project at Siksha 'O' Anusandhan Deemed University, ITER, by Sa
 | Database | PostgreSQL 17, SQLAlchemy + Alembic migrations |
 | Plagiarism matching | `sentence-transformers` (`all-MiniLM-L6-v2`) — a pre-trained model, not trained by us |
 | AI-text / AI-image detection | Hand-written statistical heuristics — **not** a trained model, deliberately (see Design notes below) |
-| Auth | bcrypt password hashing + JWT bearer tokens |
+| Auth | bcrypt password hashing, JWT bearer tokens, and Google OAuth |
 | Email (OTP verification, password reset) | Resend |
 | Payments | Razorpay (test mode) |
 | PDF reports | reportlab |
@@ -91,7 +91,7 @@ Sign up on `/signup` — this now requires a 6-digit email code before the accou
 - `pgvector` isn't installed; similarity search runs in Python/NumPy, fine at this scale, not indexed.
 - No OCR — scanned/image-only PDFs fail extraction with a clear error.
 - Resend's free tier can only deliver to the account owner's own verified email until a domain is verified — real signups from other people won't receive their code yet.
-- Not deployed anywhere publicly yet.
+- **Deployment:** Frontend is deployed live on Vercel (`https://credence-checker.vercel.app`). The backend runs locally via an Ngrok tunnel for development and Razorpay webhook testing.
 
 ## Database migrations
 

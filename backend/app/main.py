@@ -8,7 +8,7 @@ app = FastAPI(title="Credence API", version="0.1.0")
 # Local Next.js dev server. Tighten this list before deploying anywhere public.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "https://credence-checker.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
