@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #faf9f5;
+  --surface: #ffffff;
+  --surface-2: #f1efe9;
+  --ink: #191b1f;
+  --ink-soft: #565a63;
+  --ink-faint: #8a8d96;
+  --line: #e4e1d8;
+  --line-strong: #d3cec0;
+
+  --accent: #a9790c;
+  --accent-ink: #5c4409;
+  --accent-soft: #f5e6b8;
+
+  --good: #3f7d4a;
+  --good-soft: #e4f0e6;
+  --warn: #c2703d;
+  --warn-soft: #fbebdf;
+  --bad: #b3432f;
+  --bad-soft: #fbeae6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #090e17;
+    --surface: #111827;
+    --surface-2: #1f2937;
+    --ink: #f9fafb;
+    --ink-soft: #9ca3af;
+    --ink-faint: #6b7280;
+    --line: #1e293b;
+    --line-strong: #334155;
+
+    --accent: #eab308;
+    --accent-ink: #fef08a;
+    --accent-soft: #422006;
+
+    --good: #4ade80;
+    --good-soft: #064e3b;
+    --warn: #fb923c;
+    --warn-soft: #7c2d12;
+    --bad: #f87171;
+    --bad-soft: #7f1d1d;
+  }
+}
+
+/* explicit toggle - wins over system preference in both directions */
+:root[data-theme="dark"] {
+  --paper: #090e17;
+  --surface: #111827;
+  --surface-2: #1f2937;
+  --ink: #f9fafb;
+  --ink-soft: #9ca3af;
+  --ink-faint: #6b7280;
+  --line: #1e293b;
+  --line-strong: #334155;
+
+  --accent: #eab308;
+  --accent-ink: #fef08a;
+  --accent-soft: #422006;
+
+  --good: #4ade80;
+  --good-soft: #064e3b;
+  --warn: #fb923c;
+  --warn-soft: #7c2d12;
+  --bad: #f87171;
+  --bad-soft: #7f1d1d;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-source-serif);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+/* elevation system - one place to keep every card/panel's depth consistent.
+   dark mode gets a border instead of a heavier shadow, since shadows read
+   as muddy smudges on a dark ground rather than real depth */
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(24, 20, 8, 0.04), 0 4px 12px -4px rgba(24, 20, 8, 0.08);
+}
+
+:root[data-theme="dark"] .surface-card {
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .surface-card {
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.surface-card-hover {
+  transition: box-shadow 150ms ease, transform 150ms ease, border-color 150ms ease;
+}
+
+.surface-card-hover:hover {
+  box-shadow: 0 2px 4px rgba(24, 20, 8, 0.06), 0 8px 20px -6px rgba(24, 20, 8, 0.12);
+  border-color: var(--line-strong);
+}
+
+/* editorial/documentary type language - small-caps mono labels used as
+   section eyebrows, case-file metadata, and masthead lines throughout */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.rule {
+  border-top: 1px solid var(--line);
+}

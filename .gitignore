@@ -1,0 +1,25 @@
+# Python
+backend/.venv/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+
+# Env files
+.env
+backend/.env
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Runtime logs
+backend/uvicorn.log
+backend/uvicorn.err.log
+frontend/nextdev.log
+frontend/nextdev.err.log
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
