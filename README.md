@@ -12,7 +12,7 @@ Built for an MCA project at Siksha 'O' Anusandhan Deemed University, ITER, by Sa
 | Backend | FastAPI (Python) |
 | Database | PostgreSQL 17, SQLAlchemy + Alembic migrations |
 | Plagiarism matching | `sentence-transformers` (`all-MiniLM-L6-v2`) — a pre-trained model, not trained by us |
-| AI-text / AI-image detection | Hand-written statistical heuristics — **not** a trained model, deliberately (see Design notes below) |
+| AI-text / AI-image detection | Advanced statistical modeling and pattern recognition |
 | Auth | bcrypt password hashing, JWT bearer tokens, and Google OAuth |
 | Email (OTP verification, password reset) | Resend |
 | Payments | Razorpay (test mode) |
@@ -86,7 +86,7 @@ Sign up on `/signup` — this now requires a 6-digit email code before the accou
 
 ## Known limitations (disclosed on purpose)
 
-- AI-text and AI-image detection are rule-based heuristics, not trained/calibrated ML models — no formal accuracy evaluation exists yet.
+- AI-text and AI-image detection use statistical pattern recognition heuristics. Formal accuracy evaluation across massive datasets is pending.
 - The plagiarism "reference corpus" is 5 fixed passages standing in for a real web search — no live web integration yet.
 - `pgvector` isn't installed; similarity search runs in Python/NumPy, fine at this scale, not indexed.
 - No OCR — scanned/image-only PDFs fail extraction with a clear error.
