@@ -1,16 +1,9 @@
-import math
+import logging
 import re
-from collections import Counter
-
-# phrases that show up disproportionately often in LLM output
-TRANSITION_PHRASES = [
-    "furthermore", "moreover", "in conclusion", "additionally",
-    "it is important to note", "it's important to note", "overall,",
-    "in summary", "on the other hand", "as a result", "in essence",
-    "it is worth noting", "delve into", "in today's world",
-]
 
 from app.services.ml_models import model_manager
+
+logger = logging.getLogger(__name__)
 
 SHORT_TEXT_WORD_COUNT = 50
 MODERATE_TEXT_WORD_COUNT = 150
@@ -35,12 +28,14 @@ def analyze_ai_likelihood(text: str) -> dict:
     try:
         classifier = model_manager.text_classifier
         result = classifier(text, truncation=True, max_length=512)[0]
-    except Exception as e:
-        # Fallback if model fails to load or infer
+    except Exception:
+        # Fallback if model fails to load or infer - the detail stays in the
+        # server log, the user just gets told the check couldn't run
+        logger.exception("AI text classifier failed during inference")
         return {
             "ai_likelihood_score": 0.5,
             "confidence": "low",
-            "reasons": [f"Deep learning inference failed: {str(e)}"],
+            "reasons": ["Deep learning inference failed (error logged server-side)."],
             "word_count": word_count,
         }
         

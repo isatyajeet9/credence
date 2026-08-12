@@ -3,7 +3,10 @@ from datetime import datetime
 
 from sqlalchemy import ARRAY, DateTime, Float, ForeignKey, Integer, Text, func
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.types import JSON
 from sqlalchemy.orm import Mapped, mapped_column
+
+ArrayVariant = JSON().with_variant(ARRAY(Float), "postgresql")
 
 from app.database import Base
 
@@ -26,6 +29,6 @@ class Embedding(Base):
     )
     chunk_index: Mapped[int] = mapped_column(Integer, nullable=False)
     chunk_text: Mapped[str] = mapped_column(Text, nullable=False)
-    embedding: Mapped[list[float] | None] = mapped_column(ARRAY(Float), nullable=True)
+    embedding: Mapped[list[float] | None] = mapped_column(ArrayVariant, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

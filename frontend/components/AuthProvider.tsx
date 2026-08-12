@@ -53,12 +53,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     router.push("/login");
   }
 
-  // Instead of completely hiding the UI on initial render which causes layout shifts, 
-  // we'll let the layout render, but the children (pages) can check `loading` if they want.
-  // Actually, to prevent any flicker of unprotected content, we can return a sleek skeleton 
-  // or just render `children` because `user` is strictly checked in pages.
-  // Wait, if we return `null` here, the navbar also gets hidden if AuthProvider wraps the whole layout.
-  // The plan is to wrap `children` inside `AppLayout`, so `AppNavbar` stays visible!
+  // Render children immediately to avoid hiding the global layout (navbar/sidebar).
+  // Individual protected pages must check the `loading` state to prevent flicker
+  // or unauthorized flashes of content before redirecting.
 
   return (
     <AuthContext.Provider value={{ user, loading, logout }}>

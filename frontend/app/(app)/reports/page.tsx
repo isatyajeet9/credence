@@ -10,11 +10,12 @@ import { scoreTone } from "@/lib/scoreTone";
 
 export default function ReportsPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [checks, setChecks] = useState<CheckHistoryItem[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (loading) return;
     if (!user) {
       router.push("/login");
       return;
@@ -24,7 +25,7 @@ export default function ReportsPage() {
     listChecks(token)
       .then(setChecks)
       .catch((err) => setError(err instanceof Error ? err.message : "Could not load reports"));
-  }, [user, router]);
+  }, [user, router, loading]);
 
   return (
     <main className="mx-auto flex w-full max-w-[1000px] flex-1 flex-col gap-8 px-6 py-12">

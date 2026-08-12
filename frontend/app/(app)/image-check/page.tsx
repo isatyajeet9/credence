@@ -10,7 +10,7 @@ import ScoreGauge from "@/components/ScoreGauge";
 
 export default function ImageCheckPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [result, setResult] = useState<CheckResult | null>(null);
@@ -18,10 +18,11 @@ export default function ImageCheckPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) {
       router.push("/login");
     }
-  }, [user, router]);
+  }, [user, router, authLoading]);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0] ?? null;

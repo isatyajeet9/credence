@@ -9,7 +9,6 @@ export default function Logo({ size = 44, textClassName = "text-2xl" }: { size?:
           alt="Credence logo" 
           width={size} 
           height={size} 
-          quality={100}
           unoptimized
           priority 
           className="relative z-10 transition-transform duration-500 ease-out group-hover:scale-105 group-hover:-rotate-3"

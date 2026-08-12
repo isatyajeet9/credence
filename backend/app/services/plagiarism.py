@@ -8,6 +8,7 @@ from app.models.document import Document
 from app.models.embedding import Embedding
 from app.models.enums import MatchSourceType
 from app.services.reference_corpus import REFERENCE_SOURCES, get_reference_embeddings
+from app.services.embeddings import get_model
 from duckduckgo_search import DDGS
 
 MATCH_THRESHOLD = 0.6
@@ -40,7 +41,8 @@ def _best_own_submission_match(own_vectors: np.ndarray | None, own_rows: list, c
     similarities = own_vectors @ np.array(chunk_vector)
     best_index = int(np.argmax(similarities))
     _embedding, original_filename, created_at = own_rows[best_index]
-    return float(similarities[best_index]), original_filename, created_at
+    display_name = original_filename if original_filename else "Pasted text"
+    return float(similarities[best_index]), display_name, created_at
 
 
 def analyze_document(db: Session, user_id: uuid.UUID, document: Document, chunks: list[str], chunk_vectors: list[list[float]]) -> dict:
@@ -76,16 +78,32 @@ def analyze_document(db: Session, user_id: uuid.UUID, document: Document, chunks
             search_query = f'{chunk_text_value[:150]}'
             try:
                 results = list(ddgs.text(search_query, max_results=1))
-                if results:
-                    best_similarity = 0.99  # Almost certain match
-                    best_match = {
-                        "source_type": MatchSourceType.reference_corpus,
-                        "source_reference": results[0]["title"],
-                        "url": results[0]["href"]
-                    }
+                if results and "body" in results[0]:
+                    model = get_model()
+                    web_vector = model.encode(results[0]["body"]).tolist()
+                    web_similarity = float(np.array(web_vector) @ np.array(chunk_vector))
+                    if web_similarity > best_similarity:
+                        best_similarity = web_similarity
+                        best_match = {
+                            "source_type": MatchSourceType.web,
+                            "source_reference": results[0]["title"],
+                            "url": results[0]["href"]
+                        }
             except Exception:
                 # If web search fails (rate limit), disable it for the rest of this document to prevent hanging
                 ddgs = None
+
+        # 3. Check own previous submissions
+        own_match_data = _best_own_submission_match(own_vectors, own_rows, chunk_vector)
+        if own_match_data:
+            own_similarity, own_filename, own_created_at = own_match_data
+            if own_similarity > best_similarity:
+                best_similarity = own_similarity
+                best_match = {
+                    "source_type": MatchSourceType.own_submission,
+                    "source_reference": f"{own_filename} ({own_created_at.strftime('%Y-%m-%d')})",
+                    "url": None
+                }
 
         # Only penalize the originality score if the similarity is above the threshold (so the UI matches the math)
         if best_similarity >= MATCH_THRESHOLD:

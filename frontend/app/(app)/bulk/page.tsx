@@ -18,18 +18,19 @@ const MAX_FILES = 10;
 
 export default function BulkPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [files, setFiles] = useState<File[]>([]);
   const [results, setResults] = useState<CheckResult[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) {
       router.push("/login");
       return;
     }
-  }, [user, router]);
+  }, [user, router, authLoading]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

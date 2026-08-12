@@ -15,17 +15,18 @@ const WHAT_WE_FLAG = [
 
 export default function FeedbackPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [text, setText] = useState("");
   const [result, setResult] = useState<FeedbackResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) {
       router.push("/login");
     }
-  }, [user, router]);
+  }, [user, router, authLoading]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

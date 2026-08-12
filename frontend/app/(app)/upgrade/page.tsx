@@ -17,13 +17,14 @@ const PRO_FEATURES = ["200 checks / month", "Bulk upload (up to 10 files)", "Eve
 
 export default function UpgradePage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [plan, setPlan] = useState<"free" | "pro" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [paymentSubmitted, setPaymentSubmitted] = useState(false);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) {
       router.push("/login");
       return;
@@ -34,7 +35,7 @@ export default function UpgradePage() {
     getBillingStatus(token)
       .then((status) => setPlan(status.plan))
       .catch(() => setPlan(null));
-  }, [user, router]);
+  }, [user, router, authLoading]);
 
   async function handleUpgrade() {
     const token = localStorage.getItem("credence_token");

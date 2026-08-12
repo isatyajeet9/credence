@@ -1,8 +1,11 @@
 import io
+import logging
 
 import c2pa
 import numpy as np
 from PIL import ExifTags, Image, ImageFilter
+
+logger = logging.getLogger(__name__)
 
 CAMERA_EXIF_TAGS = {"Make", "Model", "GPSInfo", "ExposureTime", "FNumber", "ISOSpeedRatings", "FocalLength"}
 
@@ -33,24 +36,7 @@ def _exif_signal(image: Image.Image) -> tuple[bool, list[str]]:
     return bool(found_tags), sorted(found_tags)
 
 
-def _smoothness_signal(image: Image.Image) -> float:
-    """
-    Rough proxy for how much natural sensor noise/detail an image has, using
-    edge-response variance. Not a trained classifier - just one weak signal
-    among several.
-    """
-    gray = image.convert("L")
-    edges = np.asarray(gray.filter(ImageFilter.FIND_EDGES), dtype=np.float64)
-    if edges.size == 0:
-        return 0.5
-    variance = float(np.var(edges))
-    # unusually low edge variance can indicate an overly smooth (possibly
-    # AI-generated or heavily denoised) image; thresholds are rough, not calibrated
-    if variance < 50:
-        return 0.7
-    if variance > 400:
-        return 0.2
-    return 0.45
+
 
 
 from app.services.ml_models import model_manager
@@ -63,6 +49,7 @@ def analyze_image(image_bytes: bytes, mime_type: str) -> dict:
     provenance = check_provenance(image_bytes, mime_type)
 
     score = 0.5
+    inference_success = False
     try:
         classifier = model_manager.image_classifier
         results = classifier(image)
@@ -70,9 +57,10 @@ def analyze_image(image_bytes: bytes, mime_type: str) -> dict:
         for res in results:
             if res['label'] == 'artificial':
                 score = res['score']
+                inference_success = True
                 break
-    except Exception as e:
-        print(f"Model inference failed: {e}")
+    except Exception:
+        logger.exception("AI image classifier failed during inference, falling back to a neutral 0.5 score")
         pass
 
     # Give a slight bump towards real if authentic EXIF is found, but let the model make the primary decision
@@ -98,8 +86,8 @@ def analyze_image(image_bytes: bytes, mime_type: str) -> dict:
         reasons.append("No C2PA content-credentials manifest found in the file.")
 
     return {
-        "ai_likelihood_score": round(score, 3),
-        "confidence": "high",
+        "ai_likelihood_score": round(score * 100, 1),
+        "confidence": "high" if inference_success else "low",
         "reasons": reasons,
-        "provenance": provenance,
+        "provenance": provenance
     }

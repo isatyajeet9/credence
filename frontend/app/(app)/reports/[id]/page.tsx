@@ -18,12 +18,13 @@ const SOURCE_LABELS: Record<string, string> = {
 export default function ReportDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [result, setResult] = useState<CheckResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
+    if (loading) return;
     if (!user) {
       router.push("/login");
       return;
@@ -33,7 +34,7 @@ export default function ReportDetailPage() {
     getCheck(token, params.id)
       .then(setResult)
       .catch((err) => setError(err instanceof Error ? err.message : "Could not load report"));
-  }, [params.id, user, router]);
+  }, [params.id, user, router, loading]);
 
   async function handleDownload() {
     const token = localStorage.getItem("credence_token");

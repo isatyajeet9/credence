@@ -3,6 +3,8 @@ from datetime import datetime
 
 from sqlalchemy import DateTime, Enum, Float, ForeignKey, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.types import JSON
+JSONVariant = JSON().with_variant(JSONB, "postgresql")
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -31,7 +33,7 @@ class Check(Base):
     ai_confidence_band: Mapped[ConfidenceBand | None] = mapped_column(
         Enum(ConfidenceBand, name="confidence_band"), nullable=True
     )
-    result_json: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    result_json: Mapped[dict | None] = mapped_column(JSONVariant, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
