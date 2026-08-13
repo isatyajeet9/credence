@@ -210,7 +210,10 @@ export type CheckHistoryItem = {
 
 export async function listChecks(token: string): Promise<CheckHistoryItem[]> {
   const res = await fetch(`${API_BASE_URL}/check`, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { 
+      Authorization: `Bearer ${token}`,
+      "ngrok-skip-browser-warning": "true",
+    },
   });
   if (!res.ok) throw new ApiError(await parseErrorDetail(res));
   return res.json();
@@ -218,7 +221,10 @@ export async function listChecks(token: string): Promise<CheckHistoryItem[]> {
 
 export async function getCheck(token: string, checkId: string): Promise<CheckResult> {
   const res = await fetch(`${API_BASE_URL}/check/${checkId}`, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { 
+      Authorization: `Bearer ${token}`,
+      "ngrok-skip-browser-warning": "true",
+    },
   });
   if (!res.ok) throw new ApiError(await parseErrorDetail(res));
   return res.json();
@@ -232,7 +238,10 @@ export type BillingStatus = { plan: "free" | "pro"; status: string };
 
 export async function getBillingStatus(token: string): Promise<BillingStatus> {
   const res = await fetch(`${API_BASE_URL}/billing/status`, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { 
+      Authorization: `Bearer ${token}`,
+      "ngrok-skip-browser-warning": "true",
+    },
   });
   if (!res.ok) throw new ApiError(await parseErrorDetail(res));
   return res.json();
