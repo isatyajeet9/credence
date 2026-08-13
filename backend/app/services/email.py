@@ -60,3 +60,25 @@ def otp_email_html(code: str, purpose_label: str) -> str:
       <p style="font-size: 13px; color: #5B6672;">This code expires in 10 minutes. If you didn't request this, you can ignore this email.</p>
     </div>
     """
+
+
+def pro_welcome_email_html(name: str) -> str:
+    display_name = name or "there"
+    return f"""
+    <div style="font-family: -apple-system, Segoe UI, sans-serif; max-width: 480px; margin: 0 auto; background: #fffdf7; border: 1px solid #e8dfc8; border-radius: 12px; padding: 40px;">
+      <p style="font-size: 13px; color: #a9790c; font-weight: 600; margin: 0 0 8px;">CREDENCE</p>
+      <h2 style="margin: 0 0 12px; font-size: 24px; color: #1a1a1a;">Welcome to Pro, {display_name}! 👑</h2>
+      <p style="font-size: 15px; color: #444; line-height: 1.6;">Your payment was successful and your account has been upgraded to the <strong>Pro plan</strong>.</p>
+      <div style="background: #fdf6e3; border: 1px solid #e8dfc8; border-radius: 8px; padding: 20px; margin: 24px 0;">
+        <p style="margin: 0 0 8px; font-weight: 600; color: #1a1a1a;">Your Pro features are now active:</p>
+        <ul style="margin: 0; padding-left: 20px; color: #444; font-size: 14px; line-height: 2;">
+          <li>200 checks per month</li>
+          <li>Bulk upload (up to 10 files at once)</li>
+          <li>Priority AI detection processing</li>
+          <li>Full PDF reports</li>
+        </ul>
+      </div>
+      <a href="https://credence-checker.vercel.app/dashboard" style="display: inline-block; background: #1a1a1a; color: #fff; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 600;">Go to Dashboard →</a>
+      <p style="margin-top: 32px; font-size: 12px; color: #999;">If you have any questions, just reply to this email. Thank you for supporting Credence!</p>
+    </div>
+    """

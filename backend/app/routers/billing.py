@@ -12,6 +12,7 @@ from app.models.subscription import Subscription
 from app.models.user import User
 from app.schemas.billing import CreateOrderResponse, SubscriptionStatusOut
 from app.services.payments import create_pro_upgrade_order, verify_webhook_signature
+from app.services.email import send_email, pro_welcome_email_html
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/billing", tags=["billing"])
@@ -86,4 +87,16 @@ async def razorpay_webhook(request: Request, db: Session = Depends(get_db)):
 
     db.commit()
     logger.info("Upgraded user %s to Pro via verified Razorpay webhook", user_id)
+
+    # Send a welcome email to the user
+    try:
+        send_email(
+            to=user.email,
+            subject="Welcome to Credence Pro! 👑",
+            html=pro_welcome_email_html(user.full_name or ""),
+        )
+        logger.info("Pro welcome email sent to %s", user.email)
+    except Exception:
+        logger.exception("Failed to send pro welcome email to %s", user.email)
+
     return {"status": "ok"}

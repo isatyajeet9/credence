@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     razorpay_key_id: str = ""
     razorpay_key_secret: str = ""
     razorpay_webhook_secret: str = ""
-    pro_plan_amount_paise: int = 49900  # ₹499/month
+    pro_plan_amount_paise: int = 100  # ₹1 for practice — CHANGE TO 49900 before real presentation!
 
     resend_api_key: str = ""
     email_from: str = "Credence <onboarding@resend.dev>"
