@@ -6,7 +6,7 @@ const AUDIENCES = [
   {
     icon: GraduationCap,
     title: "Students",
-    desc: "Check a draft before submission — see exactly which passages need a citation or a rewrite, before a grader does.",
+    desc: "Check a draft before submission - see exactly which passages need a citation or a rewrite, before a grader does.",
   },
   {
     icon: ClipboardCheck,
@@ -24,12 +24,12 @@ const FEATURES = [
   {
     n: "01",
     title: "Similarity detection, with sources",
-    desc: "Cross-checked against reference texts, your own prior submissions, and the open web. Every match ships with its source excerpt and a similarity score — a text-matching report, not a verdict.",
+    desc: "Cross-checked against reference texts, your own prior submissions, and the open web. Every match ships with its source excerpt and a similarity score - a text-matching report, not a verdict.",
   },
   {
     n: "02",
     title: "AI-generation likelihood",
-    desc: "Burstiness, word-entropy, and phrasing-pattern analysis, reported as a percentage with an honest confidence band — never a bare yes/no.",
+    desc: "Burstiness, word-entropy, and phrasing-pattern analysis, reported as a percentage with an honest confidence band - never a bare yes/no.",
   },
   {
     n: "03",
@@ -39,7 +39,7 @@ const FEATURES = [
   {
     n: "04",
     title: "Writing feedback",
-    desc: "Passive voice, vague language, repetition, and overlong sentences — flagged with the reasoning attached, never silently rewritten.",
+    desc: "Passive voice, vague language, repetition, and overlong sentences - flagged with the reasoning attached, never silently rewritten.",
   },
 ];
 
@@ -56,7 +56,7 @@ export default function Home() {
           </h1>
           <p className="max-w-xl text-lg leading-relaxed text-ink-soft">
             Credence runs a similarity check against reference sources and an AI-generation
-            likelihood estimate on text and images — then shows the matched excerpt, the score,
+            likelihood estimate on text and images - then shows the matched excerpt, the score,
             and the reasoning behind every call. A text-matching report, not a verdict.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2">

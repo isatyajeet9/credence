@@ -116,7 +116,7 @@ export default function SignupPage() {
           <p className="kicker mb-1.5">New account</p>
           <h1 className="font-serif text-2xl font-semibold text-ink">Create your account</h1>
           <p className="mt-1 text-sm text-ink-soft">
-            One account type for everyone — Free plan by default.
+            One account type for everyone - Free plan by default.
           </p>
         </div>
 

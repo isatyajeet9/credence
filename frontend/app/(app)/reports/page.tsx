@@ -88,10 +88,10 @@ export default function ReportsPage() {
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
                     <span className={`rounded-md px-2 py-1 text-xs font-medium ${oTone.bg} ${oTone.text}`}>
-                      {c.originality_score ?? "—"}% orig.
+                      {c.originality_score ?? "-"}% orig.
                     </span>
                     <span className={`rounded-md px-2 py-1 text-xs font-medium ${aiTone?.bg ?? "bg-surface-2"} ${aiTone?.text ?? "text-ink-faint"}`}>
-                      {aiPercent !== null ? `${aiPercent}%` : "—"} AI
+                      {aiPercent !== null ? `${aiPercent}%` : "-"} AI
                     </span>
                     <ChevronRight size={16} className="text-ink-faint" />
                   </div>

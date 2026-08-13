@@ -217,13 +217,13 @@ export default function DashboardPage() {
               {matches.length > 0 && (
                 <div className="flex w-full max-w-3xl flex-col gap-3">
                   <p className="kicker">
-                    Evidence log — {matches.length} exhibit{matches.length > 1 ? "s" : ""}
+                    Evidence log: {matches.length} exhibit{matches.length > 1 ? "s" : ""}
                   </p>
                   {matches.map((match, i) => (
                     <div key={i} className="rounded-xl border border-line bg-paper p-5 text-sm">
                       <div className="mb-3 flex items-center justify-between text-xs text-ink-faint">
                         <span className="font-medium">
-                          Exhibit {String.fromCharCode(65 + i)} — {SOURCE_LABELS[match.source_type] ?? match.source_type}:{" "}
+                          Exhibit {String.fromCharCode(65 + i)}: {SOURCE_LABELS[match.source_type] ?? match.source_type}:{" "}
                           {match.source_reference}
                         </span>
                         <span className="rounded-full bg-warn-soft px-2.5 py-1 font-medium text-warn">
@@ -270,7 +270,7 @@ export default function DashboardPage() {
             checks used on the {user.plan} plan
             {user.plan === "free" && (
               <>
-                {" — "}
+                {" - "}
                 <Link href="/upgrade" className="font-medium text-accent-ink hover:underline">
                   go Pro
                 </Link>
@@ -302,7 +302,7 @@ export default function DashboardPage() {
           {recent && recent.length === 0 && (
             <div className="surface-card flex items-center gap-2 px-5 py-4 text-sm text-ink-faint">
               <FileText size={16} />
-              No reports yet — run your first check above.
+              No reports yet - run your first check above.
             </div>
           )}
 
@@ -323,7 +323,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex shrink-0 items-center gap-2">
                       <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${oTone.bg} ${oTone.text}`}>
-                        {c.originality_score ?? "—"}%
+                        {c.originality_score ?? "-"}%
                       </span>
                       <ChevronRight size={14} className="text-ink-faint" />
                     </div>

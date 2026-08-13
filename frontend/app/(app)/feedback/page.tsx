@@ -7,8 +7,8 @@ import { checkWritingFeedback, FeedbackResult } from "@/lib/api";
 import { useAuth } from "@/components/AuthProvider";
 
 const WHAT_WE_FLAG = [
-  { title: "Passive voice", desc: "Sentences where the subject doesn't act — flagged, not silently rewritten." },
-  { title: "Weak or vague words", desc: "\"Very\", \"stuff\", \"a lot of\" — filler that dilutes precise writing." },
+  { title: "Passive voice", desc: "Sentences where the subject doesn't act - flagged, not silently rewritten." },
+  { title: "Weak or vague words", desc: "\"Very\", \"stuff\", \"a lot of\" - filler that dilutes precise writing." },
   { title: "Repetition", desc: "The same word or phrase leaning too hard within a short span of text." },
   { title: "Overlong sentences", desc: "Sentences that run long enough to lose the reader's thread." },
 ];
@@ -51,7 +51,7 @@ export default function FeedbackPage() {
         <p className="kicker mb-1.5">Style review</p>
         <h1 className="font-serif text-2xl font-semibold text-ink">Writing feedback</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Flags unclear, weak, repetitive, or passive sentences with an explanation — never rewrites your text
+          Flags unclear, weak, repetitive, or passive sentences with an explanation - never rewrites your text
           for you.
         </p>
       </div>
@@ -113,7 +113,7 @@ export default function FeedbackPage() {
               {result.feedback.length === 0 && (
                 <div className="flex flex-1 flex-col items-center justify-center gap-2 px-4 py-10 text-center">
                   <PartyPopper size={24} className="text-accent-ink" strokeWidth={1.5} />
-                  <p className="text-sm text-ink-soft">No issues found — nice and clear.</p>
+                  <p className="text-sm text-ink-soft">No issues found - nice and clear.</p>
                 </div>
               )}
               <div className="flex flex-col gap-3">

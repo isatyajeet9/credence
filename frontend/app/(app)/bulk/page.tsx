@@ -141,7 +141,7 @@ export default function BulkPage() {
           {results && (
             <div className="flex flex-col gap-2.5 p-6">
               <p className="kicker">
-                Case log — {results.length} report{results.length > 1 ? "s" : ""}
+                Case log: {results.length} report{results.length > 1 ? "s" : ""}
               </p>
               {results.map((r, i) => {
                 const oTone = scoreTone(r.originality_score ?? 0);
@@ -164,10 +164,10 @@ export default function BulkPage() {
                     </div>
                     <div className="flex shrink-0 items-center gap-2">
                       <span className={`rounded-md px-2 py-1 text-xs font-medium ${oTone.bg} ${oTone.text}`}>
-                        {r.originality_score !== null ? `${r.originality_score}% orig.` : "— orig."}
+                        {r.originality_score !== null ? `${r.originality_score}% orig.` : "- orig."}
                       </span>
                       <span className={`rounded-md px-2 py-1 text-xs font-medium ${aiTone?.bg ?? "bg-surface-2"} ${aiTone?.text ?? "text-ink-faint"}`}>
-                        {aiPercent !== null ? `${aiPercent}%` : "—"} AI
+                        {aiPercent !== null ? `${aiPercent}%` : "-"} AI
                       </span>
                       <ChevronRight size={16} className="text-ink-faint" />
                     </div>

@@ -20,9 +20,9 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Credence — Similarity & AI-Content Detection",
+  title: "Credence - Similarity & AI-Content Detection",
   description:
-    "Plagiarism similarity checking and AI-generation likelihood estimation for text and images — with the matched source, the score, and the reasoning behind every result.",
+    "Plagiarism similarity checking and AI-generation likelihood estimation for text and images - with the matched source, the score, and the reasoning behind every result.",
 };
 
 export default function RootLayout({

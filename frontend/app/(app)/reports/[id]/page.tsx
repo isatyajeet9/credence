@@ -148,13 +148,13 @@ export default function ReportDetailPage() {
         {matches.length > 0 && (
           <div className="flex flex-col gap-3">
             <p className="kicker">
-              Evidence log — {matches.length} exhibit{matches.length > 1 ? "s" : ""}
+              Evidence log: {matches.length} exhibit{matches.length > 1 ? "s" : ""}
             </p>
             {matches.map((match, i) => (
               <div key={i} className="rounded-lg border border-line bg-paper p-4 text-sm">
                 <div className="mb-2 flex items-center justify-between text-xs text-ink-faint">
                   <span>
-                    Exhibit {String.fromCharCode(65 + i)} — {SOURCE_LABELS[match.source_type] ?? match.source_type}:{" "}
+                    Exhibit {String.fromCharCode(65 + i)}: {SOURCE_LABELS[match.source_type] ?? match.source_type}:{" "}
                     {match.source_reference}
                   </span>
                   <span className="rounded-full bg-warn-soft px-2 py-0.5 font-medium text-warn">
