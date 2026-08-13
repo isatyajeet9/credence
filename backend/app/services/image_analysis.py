@@ -75,8 +75,10 @@ def analyze_image(image_bytes: bytes, mime_type: str) -> dict:
     else:
         reasons.append("No camera metadata (Make/Model) found in the file - typical for AI generators or web downloads.")
         
-    if score > 0.6:
+    if score > 0.7:
         reasons.append("HuggingFace Deepfake Detection Model classified this image as artificially generated.")
+    elif score > 0.4:
+        reasons.append("HuggingFace Deepfake Detection Model found mixed signals, suggesting the image may be AI-assisted or partially altered.")
     else:
         reasons.append("HuggingFace Deepfake Detection Model classified this image as an authentic human photograph.")
 
