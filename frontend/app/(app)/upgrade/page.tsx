@@ -149,9 +149,11 @@ export default function UpgradePage() {
             </ul>
             
             {paymentSubmitted ? (
-              <p className="mt-8 rounded-md bg-good-soft px-3 py-2 text-sm text-good text-center">
-                Payment processing. Refresh this page in a few seconds.
-              </p>
+              <div className="mt-8 flex flex-col items-center gap-3 py-2">
+                <div className="h-7 w-7 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+                <p className="text-sm font-medium text-accent-ink">Activating your Pro account…</p>
+                <p className="text-xs text-ink-soft">This only takes a second.</p>
+              </div>
             ) : (
               <button
                 onClick={handleUpgrade}
