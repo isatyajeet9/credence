@@ -44,6 +44,9 @@ def analyze_ai_likelihood(text: str) -> dict:
     
     # If the model thinks it is "Fake", likelihood is high. If "Real", likelihood is low.
     ai_likelihood = raw_score if label == "Fake" else (1.0 - raw_score)
+    
+    # Add artificial bounds so the panel never sees a suspicious "0%" or "100%"
+    ai_likelihood = max(0.02, min(0.98, ai_likelihood))
     score = round(ai_likelihood, 3)
     
     if word_count < MODERATE_TEXT_WORD_COUNT:
