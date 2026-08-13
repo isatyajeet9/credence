@@ -54,9 +54,35 @@ export default function UpgradePage() {
         prefill: { email: user.email },
         theme: { color: "#a9790c" },
         handler: function () {
-          // the actual plan upgrade happens server-side via the verified
-          // webhook, not here - this just tells the user what to expect
           setPaymentSubmitted(true);
+          
+          let attempts = 0;
+          const interval = setInterval(async () => {
+            try {
+              const status = await getBillingStatus(token);
+              if (status.plan === "pro") {
+                clearInterval(interval);
+                
+                // Update local user state
+                const userRaw = localStorage.getItem("credence_user");
+                if (userRaw) {
+                  const u = JSON.parse(userRaw);
+                  u.plan = "pro";
+                  localStorage.setItem("credence_user", JSON.stringify(u));
+                }
+                
+                // Instant refresh to show Pro UI across the entire app
+                window.location.reload();
+              }
+            } catch (e) {
+              // Ignore API errors during polling
+            }
+            
+            attempts++;
+            if (attempts > 6) {
+              clearInterval(interval); // Give up after 12 seconds
+            }
+          }, 2000);
         },
       });
       razorpay.open();

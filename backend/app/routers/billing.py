@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime, timedelta, timezone
 
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlalchemy.orm import Session
 
 from app.auth.deps import get_current_user
@@ -32,7 +32,8 @@ def create_order(current_user: User = Depends(get_current_user)):
 
 
 @router.get("/status", response_model=SubscriptionStatusOut)
-def billing_status(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def billing_status(response: Response, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    response.headers["Cache-Control"] = "no-store"
     sub = db.query(Subscription).filter(Subscription.user_id == current_user.id).first()
     if sub is None:
         return SubscriptionStatusOut(plan=current_user.plan, status=SubscriptionStatus.none)

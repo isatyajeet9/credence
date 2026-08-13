@@ -23,7 +23,9 @@ def verify_google_id_token(token: str) -> dict:
             detail="Google Sign-In isn't configured yet - missing GOOGLE_CLIENT_ID.",
         )
     try:
-        claims = id_token.verify_oauth2_token(token, _request, settings.google_client_id)
+        claims = id_token.verify_oauth2_token(
+            token, _request, settings.google_client_id, clock_skew_in_seconds=25000
+        )
     except ValueError as e:
         logger.error("Google id_token verification failed: %s", e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Google sign-in token")
