@@ -92,7 +92,7 @@ export default function DashboardPage() {
       <div>
         <p className="kicker mb-1.5">Welcome back, {user.full_name || user.email}</p>
         <h1 className="font-serif text-3xl font-semibold text-ink">
-          AI & Plagiarism Checker
+          Plagiarism Checker
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
           Paste text or upload a document to run a similarity check and an AI-generation
