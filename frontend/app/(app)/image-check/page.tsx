@@ -57,9 +57,9 @@ export default function ImageCheckPage() {
   return (
     <main className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col gap-6 px-6 py-10">
       <div>
-        <h1 className="font-serif text-3xl font-semibold text-ink">Image Provenance & AI Detector</h1>
+        <h1 className="font-serif text-3xl font-semibold text-ink">Image AI Detector</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Upload an image to scan EXIF metadata, detect AI generation artifacts, and verify C2PA content credentials.
+          Upload an image to detect if it was generated or heavily altered by Artificial Intelligence.
         </p>
       </div>
 
