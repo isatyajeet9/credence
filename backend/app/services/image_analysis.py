@@ -88,7 +88,7 @@ def analyze_image(image_bytes: bytes, mime_type: str) -> dict:
         reasons.append("No C2PA content-credentials manifest found in the file.")
 
     return {
-        "ai_likelihood_score": round(score * 100, 1),
+        "ai_likelihood_score": round(score, 3),
         "confidence": "high" if inference_success else "low",
         "reasons": reasons,
         "provenance": provenance

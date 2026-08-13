@@ -145,7 +145,7 @@ export default function BulkPage() {
               </p>
               {results.map((r, i) => {
                 const oTone = scoreTone(r.originality_score ?? 0);
-                const aiPercent = r.ai_likelihood_score !== null ? Math.round(r.ai_likelihood_score) : null;
+                const aiPercent = r.ai_likelihood_score !== null ? Math.round(r.ai_likelihood_score * 100) : null;
                 const aiTone = aiPercent !== null ? scoreTone(aiPercent, true) : null;
                 const accentClass = oTone.text.replace("text-", "border-");
                 return (

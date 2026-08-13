@@ -49,7 +49,7 @@ export default function ImageCheckPage() {
 
   const aiPercent =
     result?.ai_likelihood_score !== null && result?.ai_likelihood_score !== undefined
-      ? Math.round(result.ai_likelihood_score)
+      ? Math.round(result.ai_likelihood_score * 100)
       : null;
   const aiTone = aiPercent !== null ? scoreTone(aiPercent, true) : null;
   const hasManifest = result?.result_json?.provenance?.has_manifest;
