@@ -150,7 +150,7 @@ export default function DashboardPage() {
 
           <div className="flex items-center justify-between gap-3 border-t border-line pt-3">
             <span className="font-mono text-xs text-ink-faint">
-              {file ? file.name : `${text.length.toLocaleString()} / ${MAX_TEXT_CHARS.toLocaleString()} chars`}
+              {file ? file.name : `${(text.trim() ? text.trim().split(/\s+/).length : 0).toLocaleString()} words`}
             </span>
             <button
               type="submit"
