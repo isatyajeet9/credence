@@ -7,8 +7,8 @@
 # ============================================================================
 
 $ErrorActionPreference = "Stop"
-$backendDir = "D:\Credence\backend"
-$ngrokExe = "C:\Users\Satyajeet\AppData\Local\Microsoft\WinGet\Packages\Ngrok.Ngrok_Microsoft.Winget.Source_8wekyb3d8bbwe\ngrok.exe"
+$backendDir = $PSScriptRoot
+$ngrokExe = "ngrok"   # needs ngrok on PATH (winget install ngrok.ngrok)
 
 Write-Host "`n=== 1. Freeing port 8000 if anything stale is holding it ===" -ForegroundColor Cyan
 Get-NetTCPConnection -LocalPort 8000 -State Listen -ErrorAction SilentlyContinue |

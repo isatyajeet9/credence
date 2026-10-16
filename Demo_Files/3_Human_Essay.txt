@@ -1,0 +1,3 @@
+When I first started learning how to program, I found it incredibly frustrating. Every time I tried to write a simple Python script to automate my homework, I would run into some weird syntax error that I didn't understand. 
+
+I spent hours staring at my screen, wondering why I had chosen to study computer science. But eventually, after reading a few good tutorials and asking my friends for help, things started to click. Now, I actually enjoy the process of debugging because it feels like solving a puzzle. My next goal is to build a full-stack web application using React and FastAPI.

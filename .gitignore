@@ -23,3 +23,25 @@ frontend/nextdev.err.log
 # OS
 .DS_Store
 Thumbs.db
+
+# Env files (any variant, keep the examples)
+.env.*
+!.env.example
+!.env.local.example
+frontend/.env*
+!frontend/.env.local.example
+
+# Local databases and uploads
+*.db
+*.sqlite
+*.sqlite3
+backend/uploads/
+
+# Python extras
+.venv/
+.pytest_cache/
+*.egg-info/
+
+# Editor
+.vscode/
+.idea/
